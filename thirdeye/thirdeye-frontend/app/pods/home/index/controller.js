@@ -212,19 +212,14 @@ export default Controller.extend({
       const responseRate = respondedAnomaliesCount / totalAnomaliesCount;
       const precision = truePositives / (truePositives + falsePositives);
       const recall = truePositives / (truePositives + falseNegatives);
-      const totalAlertsDescription = 'Total number of anomalies that occured over a period of time';
-      const responseRateDescription = '% of anomalies that are reviewed';
-      const precisionDescription = '% of all anomalies detected by the system that are true';
-      const recallDescription = '% of all anomalies detected by the system';
       //TODO: Since totalAlerts is not correct here. We will use anomaliesCount for now till backend api is fixed. - lohuynh
-      const statsArray = [
-        ['Number of anomalies', totalAlertsDescription, totalAnomaliesCount, 'digit'],
-        ['Response Rate', responseRateDescription, floatToPercent(responseRate), 'percent'],
-        ['Precision', precisionDescription, floatToPercent(precision), 'percent'],
-        ['Recall', recallDescription, floatToPercent(recall), 'percent']
-      ];
 
-      return statsArray;
+      return {
+        totalAnomalies: {value: totalAnomaliesCount},
+        responseRate: {value: floatToPercent(responseRate)},
+        precision: {value: floatToPercent(precision)},
+        recall: {value: floatToPercent(recall)}
+      };
     }
   ),
 
