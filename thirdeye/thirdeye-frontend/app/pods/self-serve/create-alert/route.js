@@ -24,7 +24,7 @@ export default Route.extend({
    * @return {Object}
    */
   async model(params, transition) {
-    const debug = transition.state.queryParams.debug || '';
+    const { to: { queryParams: { debug = '' } = {} } = {} } = transition;
     const applications = await this.get('anomaliesApiService').queryApplications(); // Get all applicatons available
     const subscriptionGroups = await this.get('anomaliesApiService').querySubscriptionGroups(); // Get all subscription groups available
 
@@ -45,8 +45,8 @@ export default Route.extend({
     const subscriptionGroups = this.get('store')
       .peekAll('subscription-groups')
       .sortBy('name')
-      .filter(group => (group.get('active') && group.get('yaml')))
-      .map(group => {
+      .filter((group) => group.get('active') && group.get('yaml'))
+      .map((group) => {
         return {
           name: group.get('name'),
           id: group.get('id'),
@@ -56,7 +56,11 @@ export default Route.extend({
     const subscriptionGroupNamesDisplay = [...moddedArray, ...subscriptionGroups];
     let subscriptionYaml = defaultSubscriptionYaml;
     let groupName = createGroup;
-    if (subscriptionGroupNamesDisplay && Array.isArray(subscriptionGroupNamesDisplay) && subscriptionGroupNamesDisplay.length > 0) {
+    if (
+      subscriptionGroupNamesDisplay &&
+      Array.isArray(subscriptionGroupNamesDisplay) &&
+      subscriptionGroupNamesDisplay.length > 0
+    ) {
       const firstGroup = subscriptionGroupNamesDisplay[0];
       subscriptionYaml = firstGroup.yaml;
       groupName = firstGroup;
@@ -112,7 +116,6 @@ export default Route.extend({
     return fetch(selfServeApiOnboard.deleteAlert(functionId), postProps).then(checkStatus);
   },
 
-
   actions: {
     /**
      * save session url for transition on login
@@ -121,7 +124,7 @@ export default Route.extend({
     willTransition(transition) {
       //saving session url - TODO: add a util or service - lohuynh
       if (transition.intent.name && transition.intent.name !== 'logout') {
-        this.set('session.store.fromUrl', {lastIntentTransition: transition});
+        this.set('session.store.fromUrl', { lastIntentTransition: transition });
       }
     },
     error() {
@@ -132,19 +135,19 @@ export default Route.extend({
     },
 
     /**
-    * Refresh route's model.
-    * @method refreshModel
-    */
+     * Refresh route's model.
+     * @method refreshModel
+     */
     refreshModel() {
       this.refresh();
     },
 
     /**
-    * Trigger onboarding sequence starting with alert creation. Once triggered,
-    * we must look up the new alert Id as confirmation.
-    * @param {Object} data - contains request query params for alert creation job
-    * @method triggerReplaySequence
-    */
+     * Trigger onboarding sequence starting with alert creation. Once triggered,
+     * we must look up the new alert Id as confirmation.
+     * @param {Object} data - contains request query params for alert creation job
+     * @method triggerReplaySequence
+     */
     triggerOnboardingJob(data) {
       const { payload } = data;
       const jobName = payload.functionName;
@@ -166,5 +169,4 @@ export default Route.extend({
         });
     }
   }
-
 });

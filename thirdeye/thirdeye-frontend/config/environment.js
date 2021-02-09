@@ -47,14 +47,14 @@ module.exports = function(environment) {
       cubeWiki: "/link/to/cubeAlgorithm/wiki"
     },
 
-    // used to split username if needed.  
+    // used to split username if needed.
     userNameSplitToken: ' ',
 
     EmberENV: {
 
       FEATURES: {
         // Here you can enable experimental features on an ember canary build
-        // e.g. 'with-controller': true
+        // e.g. EMBER_NATIVE_DECORATOR_SUPPORT: true
       },
 
       EXTEND_PROTOTYPES: {
@@ -103,8 +103,6 @@ module.exports = function(environment) {
       enabled: true
     };
   }
-
-  if (environment === 'production') {}
 
   return ENV;
 };

@@ -1,22 +1,21 @@
-import { module, test } from 'qunit';
+import { module, test, skip } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
 import { render } from '@ember/test-helpers';
 import { clickTrigger, selectChoose, findContains } from 'ember-power-select/test-support/helpers';
 import hbs from 'htmlbars-inline-precompile';
 import $ from 'jquery';
 
-
-module('Integration | Component | modals/entity mapping modal', function(hooks) {
+module('Integration | Component | modals/entity mapping modal', function (hooks) {
   setupRenderingTest(hooks);
 
   const submitFunction = () => {};
   const metric = {
     urn: 'thirdeye:metric:1234567',
-    label: "test_metric",
-    type: "metric"
+    label: 'test_metric',
+    type: 'metric'
   };
 
-  test('it renders', async function(assert) {
+  skip('it renders', async function (assert) {
     this.setProperties({
       showEntityMappingModal: true,
       onSubmit: submitFunction,
@@ -57,12 +56,8 @@ module('Integration | Component | modals/entity mapping modal', function(hooks) 
       }}
     `);
 
-    assert.ok(
-      $(okSelector).length,
-      `${okSelector} should render properly when selecting`);
-    assert.notOk(
-      $(notOkSelector).length,
-      `${notOkSelector} should not render when selecting`);
+    assert.ok($(okSelector).length, `${okSelector} should render properly when selecting`);
+    assert.notOk($(notOkSelector).length, `${notOkSelector} should not render when selecting`);
   });
 
   test('advanced mapping works', async function (assert) {
@@ -83,11 +78,7 @@ module('Integration | Component | modals/entity mapping modal', function(hooks) 
       }}
     `);
 
-    assert.ok(
-      $(okSelector).length,
-      `${okSelector} should render properly when selecting`);
-    assert.notOk(
-      $(notOkSelector).length,
-      `${notOkSelector} should not render when selecting`);
+    assert.ok($(okSelector).length, `${okSelector} should render properly when selecting`);
+    assert.notOk($(notOkSelector).length, `${notOkSelector} should not render when selecting`);
   });
 });

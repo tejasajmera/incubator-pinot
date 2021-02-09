@@ -2,21 +2,21 @@
 export default [
   {
     propertyName: 'start',
-    template: 'custom/anomalies-table/start-duration',
+    component: 'custom/anomalies-table/start-duration',
     title: 'Start/Duration',
     className: 'anomalies-table__column anomalies-table__column--med-width',
     disableFiltering: true
   },
   {
     propertyName: 'dimensions',
-    template: 'custom/anomalies-table/dimensions',
+    component: 'custom/anomalies-table/dimensions',
     title: 'Dimensions',
     className: 'anomalies-table__column anomalies-table__column--large-width',
     disableFiltering: true
   },
   {
     propertyName: 'baseline',
-    template: 'custom/anomalies-table/current-wow',
+    component: 'custom/anomalies-table/current-wow',
     title: 'Current/WoW',
     className: 'anomalies-table__column anomalies-table__column--small-width',
     disableFiltering: true

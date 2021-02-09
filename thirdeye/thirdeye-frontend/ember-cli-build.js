@@ -5,7 +5,7 @@ const EmberApp = require('ember-cli/lib/broccoli/ember-app');
 const Funnel = require('broccoli-funnel');
 const MergeTrees = require('broccoli-merge-trees');
 
-module.exports = function(defaults) {
+module.exports = function (defaults) {
   let app = new EmberApp(defaults, {
     // Add options here
     'ember-cli-babel': {
@@ -17,7 +17,7 @@ module.exports = function(defaults) {
     },
 
     sassOptions: {
-      extension: 'scss',
+      extension: 'scss'
     },
 
     sourcemaps: {
@@ -27,15 +27,13 @@ module.exports = function(defaults) {
 
     babel: {
       sourceMaps: 'inline',
-      plugins: [
-        'transform-object-rest-spread'
-      ]
+      plugins: ['@babel/plugin-proposal-object-rest-spread']
     },
 
     'ember-bootstrap': {
-      'bootstrapVersion': 3,
-      'importBootstrapFont': true,
-      'importBootstrapCSS': false
+      bootstrapVersion: 3,
+      importBootstrapFont: true,
+      importBootstrapCSS: false
     },
 
     //for ember EDITOR
@@ -70,16 +68,12 @@ module.exports = function(defaults) {
 
   // imports yamljs node module as commonjs
   app.import('node_modules/yamljs/index.js', {
-    using: [
-      { transformation: 'cjs', as: 'yamljs'}
-    ]
+    using: [{ transformation: 'cjs', as: 'yamljs' }]
   });
 
   // imports yamljs node module as commonjs
   app.import('node_modules/js-yaml/index.js', {
-    using: [
-      { transformation: 'cjs', as: 'js-yaml'}
-    ]
+    using: [{ transformation: 'cjs', as: 'js-yaml' }]
   });
 
   // Use `app.import` to add additional libraries to the generated

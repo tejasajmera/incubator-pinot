@@ -218,7 +218,7 @@ export default Component.extend({
       predefinedFilterOptions: MAPPING_TYPES.map((type) => type.toLowerCase())
     },
     {
-      template: 'custom/filterLabel',
+      component: 'custom/filter-label',
       title: 'Filter value',
       className: 'te-modal__table-cell',
       propertyName: 'label',
@@ -240,7 +240,7 @@ export default Component.extend({
     //   title: 'Date Created'
     // },
     {
-      template: 'custom/tableDelete',
+      component: 'custom/table-delete',
       title: '',
       className: 'te-modal__table-cell te-modal__table-cell--delete te-modal__table-cell--dark'
     }

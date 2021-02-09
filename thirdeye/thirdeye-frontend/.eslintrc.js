@@ -1,3 +1,5 @@
+'use strict';
+
 module.exports = {
   globals: {
     server: true
@@ -5,7 +7,10 @@ module.exports = {
   root: true,
   parserOptions: {
     ecmaVersion: 2018,
-    sourceType: 'module'
+    sourceType: 'module',
+    ecmaFeatures: {
+      legacyDecorators: true
+    }
   },
   plugins: ['prettier', 'ember'],
   extends: ['eslint:recommended', 'plugin:ember/recommended', "plugin:prettier/recommended"],
@@ -42,12 +47,13 @@ module.exports = {
       files: [
         'ember-cli-build.js',
         'testem.js',
+        'blueprints/*/index.js',
         'config/**/*.js',
-        'lib/*/index.js'
+        'lib/*/index.js',
+        'server/**/*.js'
       ],
       parserOptions: {
-        sourceType: 'script',
-        ecmaVersion: 2015
+        sourceType: 'script'
       },
       env: {
         browser: false,

@@ -37,7 +37,7 @@ const COMMON_COLUMNS = {
 export const PARENT_TABLE_COLUMNS = [
   COMMON_COLUMNS.START_DURATION,
   {
-    template: 'custom/composite-anomalies-table/anomalies-list',
+    component: 'custom/composite-anomalies-table/anomalies-list',
     propertyName: 'anomaliesDetails',
     title: 'Anomalies details',
     filterFunction(cell, filterStr, record) {

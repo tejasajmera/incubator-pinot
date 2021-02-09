@@ -7,13 +7,13 @@ export default [
     sortPrecedence: 0
   },
   {
-    template: 'custom/table-checkbox',
+    component: 'custom/table-checkbox',
     useFilter: false,
     mayBeHidden: false,
     className: 'events-table__column events-table__column--checkbox'
   },
   {
-    template: 'custom/table-label',
+    component: 'custom/table-label',
     propertyName: 'label',
     title: 'Event Name',
     className: 'events-table__column'

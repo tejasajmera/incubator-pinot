@@ -34,11 +34,11 @@
       <table class="te-anomaly-table te-anomaly-table--performance">
         <thead>
           <tr class="te-anomaly-table__row te-anomaly-table__head">
-            {{#each tableHeaders as |header|}}
+            {{#each tableHeaders as |tableHeader|}}
               <th class="te-anomaly-table__cell-head">
-                <a class="te-anomaly-table__cell-link" {{action "toggleSortDirection" header.text}}>
-                  {{header.text}}
-                 <i class="te-anomaly-table__icon te-anomaly-table__icon--small glyphicon glyphicon-menu-{{header.sort}}"></i>
+                <a class="te-anomaly-table__cell-link" {{action "toggleSortDirection" tableHeader.text}}>
+                  {{tableHeader.text}}
+                 <i class="te-anomaly-table__icon te-anomaly-table__icon--small glyphicon glyphicon-menu-{{tableHeader.sort}}"></i>
                 </a>
               </th>
             {{/each}}

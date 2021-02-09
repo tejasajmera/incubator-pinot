@@ -23,8 +23,9 @@ export default Route.extend(ApplicationRouteMixin, {
     // calling this._super to trigger ember-simple-auth's hook
     this._super(...arguments);
 
+    const { to: { queryParams: { debug = '' } = {} } = {} } = transition;
     // if configured as https only, redirect http to https, unless in debug mode
-    const debug = transition.queryParams.debug || '';
+
     if (config.https_only && location.protocol === 'http:' && debug != 'show') {
       location.href = 'https:' + window.location.href.substring(window.location.protocol.length);
     }
@@ -85,7 +86,7 @@ export default Route.extend(ApplicationRouteMixin, {
      * we will catch 401 and provide a specific 401 message on the login page. With that, we will also store the last transition attempt
      * to retry upon successful authentication. Last, we will logout the user to destroy the session and allow the user to login to be authenticated.
      */
-    error: function(error, /*transition*/) {
+    error: function (error /*transition*/) {
       const isDevEnv = config.environment === 'development';
 
       const notifications = this.get('notifications');

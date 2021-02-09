@@ -7,7 +7,7 @@ export default [
     sortPrecedence: 0
   },
   {
-    template: 'custom/table-checkbox',
+    component: 'custom/table-checkbox',
     className: 'metrics-table__column metrics-table__column--checkbox'
   },
   {
@@ -30,7 +30,7 @@ export default [
     className: 'metrics-table__column metrics-table__column--small'
   },
   {
-    template: 'custom/dimensions-table-change',
+    component: 'custom/dimensions-table-change',
     propertyName: 'change',
     sortedBy: 'sortable_change',
     title: 'Percentage Change',
@@ -38,7 +38,7 @@ export default [
     className: 'metrics-table__column metrics-table__column--small'
   },
   {
-    template: 'custom/dimensions-table-change',
+    component: 'custom/dimensions-table-change',
     propertyName: 'changeContribution',
     sortedBy: 'sortable_changeContribution',
     title: 'Change in Contribution',
@@ -48,7 +48,7 @@ export default [
     sortPrecedence: 1
   },
   {
-    template: 'custom/dimensions-table-change',
+    component: 'custom/dimensions-table-change',
     propertyName: 'contributionToChange',
     sortedBy: 'sortable_contributionToChange',
     title: 'Contribution to Change',

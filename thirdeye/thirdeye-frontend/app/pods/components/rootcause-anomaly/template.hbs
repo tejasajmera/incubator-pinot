@@ -104,10 +104,10 @@
               {{/tooltip-on-element}}
             </span>
           </div>
-          {{#each options as |option|}}
+          {{#each options as |opt|}}
             <div class="rootcause-anomaly__radio-button-item">
-              {{#radio-button value=option groupValue=status changed=(action "onFeedback")}}
-                <span class="te-radio__option">{{get optionsMapping option}}</span>
+              {{#radio-button value=opt groupValue=status changed=(action "onFeedback")}}
+                <span class="te-radio__option">{{get optionsMapping opt}}</span>
               {{/radio-button}}
             </div>
           {{/each}}

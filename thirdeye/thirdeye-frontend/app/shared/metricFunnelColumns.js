@@ -7,18 +7,18 @@ export default [
     sortPrecedence: 0
   },
   {
-    template: 'custom/table-checkbox',
+    component: 'custom/table-checkbox',
     className: 'metrics-table__column  metrics-table__column--checkbox'
   },
   {
     propertyName: 'label',
     title: 'Metric',
-    template: 'custom/metrics-table-metric',
+    component: 'custom/metrics-table-metric',
     className: 'metrics-table__column metrics-table__column--large'
   },
   {
     propertyName: 'current',
-    template: 'custom/metrics-table-current',
+    component: 'custom/metrics-table-current',
     sortedBy: 'sortable_current',
     title: 'current',
     disableFiltering: true,
@@ -27,7 +27,7 @@ export default [
   },
   {
     propertyName: 'baseline',
-    template: 'custom/metrics-table-offset',
+    component: 'custom/metrics-table-offset',
     sortedBy: 'sortable_baseline',
     title: 'baseline',
     disableFiltering: true,
@@ -35,7 +35,7 @@ export default [
   },
   {
     propertyName: 'yo1y',
-    template: 'custom/metrics-table-offset',
+    component: 'custom/metrics-table-offset',
     sortedBy: 'sortable_yo1y',
     title: 'YoY',
     disableFiltering: true,

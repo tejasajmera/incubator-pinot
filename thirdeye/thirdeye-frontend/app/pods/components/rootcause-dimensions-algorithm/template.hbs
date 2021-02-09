@@ -3,17 +3,17 @@
     The algorithmic summary does not support metrics with exclusion filters yet.
     Please remove the exclusion to generate the summary.
   </div>
-
 {{else}}
   {{#if fetchDimensionAnalysisData.isRunning}}
-    <div class="spinner-wrapper-self-serve">{{ember-spinner}}</div>
+    <div class="spinner-wrapper-self-serve">
+      {{ember-spinner}}
+    </div>
   {{/if}}
-
   <a class="te-self-serve__side-link te-self-serve__side-link--tall" {{action "onClickDimensionOptions" this}}>
-    <i class="glyphicon glyphicon-cog te-icon__inline-link"></i> Configure analysis table
+    <i class="glyphicon glyphicon-cog te-icon__inline-link"></i>
+    Configure analysis table
   </a>
-
-  {{!-- Dimension table controls modal --}}
+  {{! Dimension table controls modal }}
   {{#te-modal
     isMicroModal=true
     cancelButtonText="Cancel"
@@ -23,25 +23,23 @@
     isShowingModal=openSettingsModal
     headerText="Dimension Analysis Settings"
   }}
-    {{rootcause-dimensions-settings
-      dimensionOptions=dimensionOptions
-      customTableSettings=customTableSettings
-    }}
+    {{rootcause-dimensions-settings dimensionOptions=dimensionOptions customTableSettings=customTableSettings}}
   {{/te-modal}}
 
-  {{!-- Dimension analysis table --}}
-  {{update-table
-    pageSize=25
-    data=dimensionTableData
-    columns=dimensionTableColumns
-    groupedHeaders=dimensionTableHeaders
-    multipleColumnsSorting=false
-    showColumnsDropdown=false
-    showGlobalFilter=false
-    filteringIgnoreCase=true
-    multipleExpand=true
-    multipleSelect=true
-    customClasses=dimensionTableClasses
-    headerFilteringRowTemplate=headerFilteringRowTemplate
-  }}
+  {{! Dimension analysis table }}
+  {{#unless fetchDimensionAnalysisData.isRunning}}
+    {{models-table
+      themeInstance=dimensionTableTheme
+      pageSize=25
+      data=dimensionTableData
+      columns=dimensionTableColumns
+      groupedHeaders=dimensionTableHeaders
+      multipleColumnsSorting=false
+      showColumnsDropdown=false
+      showGlobalFilter=false
+      useFilteringByColumns=false
+      multipleExpand=true
+      multipleSelect=true
+    }}
+  {{/unless}}
 {{/if}}

@@ -170,12 +170,12 @@ export default Component.extend({
         sortPrecedence: 0
       },
       {
-        template: 'custom/table-checkbox',
+        component: 'custom/table-checkbox',
         className: 'metrics-table__column'
       },
       {
         propertyName: 'label',
-        template: 'custom/metrics-table-metric',
+        component: 'custom/metrics-table-metric',
         title: 'Metric',
         className: 'metrics-table__column metrics-table__column--large'
       }
@@ -184,7 +184,7 @@ export default Component.extend({
     buckets.forEach((t) => {
       columns.push({
         propertyName: `${t}`,
-        template: 'custom/trend-table-cell',
+        component: 'custom/trend-table-cell',
         title: this._formatTime(t),
         sortedBy: `${t}_raw`,
         disableFiltering: true,
@@ -193,7 +193,7 @@ export default Component.extend({
     });
 
     columns.push({
-      template: 'custom/rca-metric-links',
+      component: 'custom/rca-metric-links',
       propertyName: 'links',
       title: 'Links',
       disableFiltering: true,

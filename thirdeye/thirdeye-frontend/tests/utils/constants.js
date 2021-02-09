@@ -70,7 +70,6 @@ export const selfServeConst = {
 
   // Tuning Page Elements
   LINK_ALERT_PAGE: '.te-button:contains("Back to overview")'
-
 };
 
 /**
@@ -96,7 +95,7 @@ export const rootCauseConst = {
   HEATMAP_DROPDOWN: '#select-heatmap-mode',
   SELECTED_HEATMAP_MODE: '.ember-power-select-selected-item',
   EVENTS_FILTER_BAR: '.filter-bar',
-  EVENTS_TABLE: '.events-table',
+  EVENTS_TABLE: '.table',
   RCA_TOGGLE: '.rootcause-to-legacy-toggle'
 };
 

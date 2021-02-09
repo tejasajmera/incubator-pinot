@@ -7,12 +7,8 @@
 import _ from 'lodash';
 import moment from 'moment';
 import Route from '@ember/routing/route';
-import {
-  hash
-} from 'rsvp';
-import {
-  buildDateEod
-} from 'thirdeye-frontend/utils/utils';
+import { hash } from 'rsvp';
+import { buildDateEod } from 'thirdeye-frontend/utils/utils';
 import { setUpTimeRangeOptions } from 'thirdeye-frontend/utils/manage-alert-utils';
 import { getAiAvailability } from 'thirdeye-frontend/utils/anomaly';
 import { inject as service } from '@ember/service';
@@ -46,7 +42,8 @@ export default Route.extend({
   },
 
   beforeModel(transition) {
-    const { duration, startDate } = transition.queryParams;
+    const { to: { queryParams: { duration, startDate } = {} } = {} } = transition;
+
     // Default to 1 week of anomalies to show if no dates present in query params
     if (!duration || !startDate) {
       this.transitionTo({ queryParams: defaultDurationObj });
@@ -60,11 +57,7 @@ export default Route.extend({
    */
   model(transition) {
     // Get duration data
-    const {
-      duration,
-      startDate,
-      endDate
-    } = transition;
+    const { duration, startDate, endDate } = transition;
 
     return hash({
       // Fetch table data
@@ -78,9 +71,10 @@ export default Route.extend({
   afterModel(model) {
     this._super(model);
 
-    let tableData = (Array.isArray(model.tableData) && model.tableData.length > 0) ? model.tableData : [{ 'No Data Returned' : 'N/A'}];
+    let tableData =
+      Array.isArray(model.tableData) && model.tableData.length > 0 ? model.tableData : [{ 'No Data Returned': 'N/A' }];
     let tableHeaders = Object.keys(tableData[0]);
-    tableHeaders = tableHeaders.map(header => {
+    tableHeaders = tableHeaders.map((header) => {
       return {
         text: header,
         sort: 'down'
@@ -88,15 +82,15 @@ export default Route.extend({
     });
     // augment response for direct mapping of keys to headers and fields to table cell
     const newTableData = [];
-    tableData.forEach(flow => {
+    tableData.forEach((flow) => {
       const anomaliesArray = Object.keys(flow.comment);
       if (anomaliesArray.length > 0) {
-        anomaliesArray.forEach(anomalyId => {
+        anomaliesArray.forEach((anomalyId) => {
           const row = _.cloneDeep(flow);
           row.comment = flow.comment[anomalyId];
           // build array of strings to put on DOM
           row.columns = [];
-          tableHeaders.forEach(header => {
+          tableHeaders.forEach((header) => {
             const cellValue = row[header.text];
             if (header.text === 'comment') {
               const domString = `<a href="https://thirdeye.corp.linkedin.com/app/#/rootcause?anomalyId=${anomalyId}">${flow.comment[anomalyId]}</a>`;
@@ -121,7 +115,7 @@ export default Route.extend({
         row.comment = null;
         // build array of strings to put on DOM
         row.columns = [];
-        tableHeaders.forEach(header => {
+        tableHeaders.forEach((header) => {
           const cellValue = row[header.text];
           if (header.text === 'comment') {
             const domString = 'N/A';
@@ -135,7 +129,7 @@ export default Route.extend({
             } else {
               row.columns.push(cellValue);
             }
-          }  else {
+          } else {
             row.columns.push(cellValue);
           }
         });
@@ -148,21 +142,14 @@ export default Route.extend({
   setupController(controller, model) {
     this._super(controller, model);
 
-    const {
-      startDate,
-      endDate,
-      duration,
-      tableData,
-      tableHeaders
-    } = model;
-
+    const { startDate, endDate, duration, tableData, tableHeaders } = model;
 
     // Display loading banner
     controller.setProperties({
       timeRangeOptions: setUpTimeRangeOptions(['1w', '1m'], duration),
       activeRangeStart: moment(Number(startDate)).format(displayDateFormat),
       activeRangeEnd: moment(Number(endDate)).format(displayDateFormat),
-      uiDateFormat: "MMM D, YYYY hh:mm a",
+      uiDateFormat: 'MMM D, YYYY hh:mm a',
       timePickerIncrement: 5,
       // isDataLoading: true,
       tableData,
@@ -178,19 +165,19 @@ export default Route.extend({
     willTransition(transition) {
       //saving session url - TODO: add a util or service - lohuynh
       if (transition.intent.name && transition.intent.name !== 'logout') {
-        this.set('session.store.fromUrl', {lastIntentTransition: transition});
+        this.set('session.store.fromUrl', { lastIntentTransition: transition });
       }
     },
-    
+
     error() {
       return true;
     },
 
     /**
-    * Refresh route's model.
-    * @method refreshModel
-    * @return {undefined}
-    */
+     * Refresh route's model.
+     * @method refreshModel
+     * @return {undefined}
+     */
     refreshModel() {
       this.refresh();
     }

@@ -40,6 +40,7 @@ import moment from 'moment';
 import _ from 'lodash';
 import config from 'thirdeye-frontend/config/environment';
 import * as anomalyUtil from 'thirdeye-frontend/utils/anomaly';
+import { ANOMALIES_TABLE_THEME } from 'thirdeye-frontend/utils/table-themes';
 
 const TABLE_DATE_FORMAT = 'MMM DD, hh:mm A'; // format for anomaly table
 const TIME_PICKER_INCREMENT = 5; // tells date picker hours field how granularly to display time
@@ -99,17 +100,7 @@ export default Component.extend({
   granularity: null,
   alertYaml: null,
   //** overrides for ember-models-table defaults
-  customMessages: {
-    searchLabel: 'Search',
-    searchPlaceholder: 'search by any column'
-  },
-  customClasses: {
-    globalFilterWrapper: 'te-table-global-filter',
-    outerTableWrapper: 'te-anomaly-table-wrapper',
-    columnsDropdownWrapper: 'te-column-dropdown',
-    table: 'table table-striped table-bordered table-condensed te-anomaly-table-body'
-  },
-  //**
+  themeInstance: ANOMALIES_TABLE_THEME.create(),
   dimensionExploration: null,
   // cachedMetric holds the last metric of anomalies fetched, so that state can be reset for comparison if metric changes
   cachedMetric: null,
@@ -698,7 +689,7 @@ export default Component.extend({
           : [];
       const startColumn = [
         {
-          template: 'custom/anomalies-table/start-duration',
+          component: 'custom/anomalies-table/start-duration',
           title: `Start / Duration (${moment().tz(config.timeZone).format('z')})`,
           propertyName: 'startDateStr',
           sortedBy: 'start',
@@ -710,7 +701,7 @@ export default Component.extend({
         alertHasDimensions && !isComposite
           ? [
               {
-                template: 'custom/anomalies-table/dimensions-only',
+                component: 'custom/anomalies-table/dimensions-only',
                 title: 'Dimensions',
                 propertyName: 'dimensionStr'
               }
@@ -718,7 +709,7 @@ export default Component.extend({
           : [];
       const middleColumns = [
         {
-          template: 'custom/anomalies-table/current-wow',
+          component: 'custom/anomalies-table/current-wow',
           title: 'Current / Predicted',
           propertyName: 'change'
         },

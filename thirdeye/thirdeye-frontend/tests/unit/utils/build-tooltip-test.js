@@ -1,8 +1,8 @@
 import BuildTooltip from 'thirdeye-frontend/utils/build-tooltip';
 import { module, test } from 'qunit';
 
-module('Unit | Utility | build-tooltip', function() {
-  test('it builds', function(assert) {
+module('Unit | Utility | build-tooltip', function () {
+  test('it builds', function (assert) {
     const hash = {
       entities: {},
       timeseries: {},
@@ -10,11 +10,9 @@ module('Unit | Utility | build-tooltip', function() {
       hoverTimeStamp: {}
     };
 
-    const tooltip = new BuildTooltip();
+    const tooltip = BuildTooltip.create();
     const tooltipTemplate = tooltip.compute(hash).toString();
 
-    assert.ok(
-      tooltipTemplate.includes('<div class="te-tooltip">'),
-      'The tooltip should be created correctly');
+    assert.ok(tooltipTemplate.includes('<div class="te-tooltip">'), 'The tooltip should be created correctly');
   });
 });

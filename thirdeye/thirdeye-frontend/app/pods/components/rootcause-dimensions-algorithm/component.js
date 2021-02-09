@@ -40,6 +40,7 @@ import {
   toFilters,
   hasExclusionFilters
 } from 'thirdeye-frontend/utils/rca-utils';
+import { ROOTCAUSE_DIMENSIONS_ALGORITHM_THEME } from 'thirdeye-frontend/utils/table-themes';
 import { groupedHeaders, baseColumns } from 'thirdeye-frontend/shared/dimensionAnalysisTableConfig';
 import d3 from 'd3';
 
@@ -144,10 +145,7 @@ export default Component.extend({
    * Override for table classes
    * @type {Object}
    */
-  dimensionTableClasses: {
-    table: 'rootcause-dimensions-table table-condensed',
-    noDataCell: 'rootcause-dimensions-table__column--blank-cell'
-  },
+  dimensionTableTheme: ROOTCAUSE_DIMENSIONS_ALGORITHM_THEME.create(),
 
   /**
    * Labels to omit from URN when isolating filter keys
@@ -160,12 +158,6 @@ export default Component.extend({
    * @type {Boolean}
    */
   isDimensionDataPresent: false,
-
-  /**
-   * Template for custom header row
-   * @type {Boolean}
-   */
-  headerFilteringRowTemplate: 'custom/dimensions-table/header-row-filtering',
 
   /**
    * Set up initial states for custom table settings
@@ -269,7 +261,7 @@ export default Component.extend({
         dimensionColumns.push({
           disableSorting: true,
           isFirstColumn: index === 0,
-          disableFiltering: isLastDimension, // currently overridden by headerFilteringRowTemplate
+          disableFiltering: isLastDimension,
           propertyName: 'dimensionValue',
           dimensionCategory: dimension,
           title: dimension.capitalize(),

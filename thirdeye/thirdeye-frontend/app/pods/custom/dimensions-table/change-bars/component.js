@@ -12,16 +12,12 @@
  *    disableFiltering: true
  *  }
  */
-import Component from "@ember/component";
-import { getWithDefault } from '@ember/object';
-import { get, set, setProperties } from '@ember/object';
-import { inject as service } from '@ember/service';
+import Component from '@ember/component';
+import { setProperties } from '@ember/object';
 import { toWidthNumber } from 'thirdeye-frontend/utils/rca-utils';
-import { once } from '@ember/runloop';
 import d3 from 'd3';
 
 export default Component.extend({
-
   dimensionLabel: null,
   isCellHidden: false,
   isFirstColumn: false,
@@ -31,33 +27,29 @@ export default Component.extend({
   inputId: null,
   isNegativeChange: false,
 
-  init() {
+  didReceiveAttrs() {
     this._super(...arguments);
     this._setBarWidths();
   },
 
   _setBarWidths() {
-    const negativeMax = d3.max(this.data.map(row => toWidthNumber(row.elementWidth.negative)));
-    const positiveMax = d3.max(this.data.map(row => toWidthNumber(row.elementWidth.positive)));
+    const { column: { data = [] } = {} } = this;
+
+    const negativeMax = d3.max(data.map((row) => toWidthNumber(row.elementWidth.negative)));
+    const positiveMax = d3.max(data.map((row) => toWidthNumber(row.elementWidth.positive)));
 
     // Map the max values to a slightly larger scale
-    const containerWidthScale = d3.scaleLinear()
-      .domain([0, 100])
-      .range([0, 120]);
+    const containerWidthScale = d3.scaleLinear().domain([0, 100]).range([0, 120]);
 
     // Take the max value and map it to a width of 150 pixels. This will be the container width for each column.
     const containerWidthNegative = Math.round(containerWidthScale(negativeMax));
     const containerWidthPositive = Math.round(containerWidthScale(positiveMax));
 
     // Map the negative bar width to the largest negative value as 100%
-    const negativeBarScale = d3.scaleLinear()
-      .domain([0, negativeMax])
-      .range([0, 100]);
+    const negativeBarScale = d3.scaleLinear().domain([0, negativeMax]).range([0, 100]);
 
     // Map the positive bar width to the largest positive value as 100%
-    const positiveBarScale = d3.scaleLinear()
-      .domain([0, positiveMax])
-      .range([0, 100]);
+    const positiveBarScale = d3.scaleLinear().domain([0, positiveMax]).range([0, 100]);
 
     setProperties(this, {
       containerWidthNegative,
@@ -67,5 +59,4 @@ export default Component.extend({
       barWidthPositive: positiveBarScale(toWidthNumber(this.record.elementWidth.positive))
     });
   }
-
 });

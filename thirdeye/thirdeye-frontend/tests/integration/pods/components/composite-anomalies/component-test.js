@@ -1,20 +1,17 @@
-import { moduleForComponent, test } from 'ember-qunit';
+import { module, test, setupRenderingTest } from 'ember-qunit';
+import { render } from '@ember/test-helpers';
 import hbs from 'htmlbars-inline-precompile';
 
-moduleForComponent('composite-anomalies', 'Integration | Component | composite anomalies', {
-  integration: true
-});
+module('Integration | Component | composite anomalies', function (hooks) {
+  setupRenderingTest(hooks);
+  test('it renders', async function (assert) {
+    this.setProperties({
+      alertId: 123,
+      anomalies: []
+    });
 
-test('it renders', function (assert) {
-  // Set any properties with this.set('myProperty', 'value');
-  // Handle any actions with this.on('myAction', function(val) { ... });
+    await render(hbs`{{composite-anomalies alertId=alertId anomalies=anomalies}}`);
 
-  this.setProperties({
-    alertId: 123,
-    anomalies: []
+    assert.ok(this.$().text().trim().includes('Alert Anomalies'));
   });
-
-  this.render(hbs`{{composite-anomalies alertId=alertId anomalies=anomalies}}`);
-
-  assert.ok(this.$().text().trim().includes('Alert Anomalies'));
 });

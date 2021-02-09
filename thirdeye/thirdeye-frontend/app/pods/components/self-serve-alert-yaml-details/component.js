@@ -42,7 +42,8 @@ export default Component.extend({
   didReceiveAttrs() {
     this._super(...arguments);
 
-    const { alertData: { metric: metrics = [] } = {} } = this;
+    const { alertData: { metric } = {} } = this;
+    const metrics = metric || [];
 
     this.set('firstMetric', metrics[0] || undefined);
     this.set('remainingMetricCount', metrics.length - 1);
